@@ -1,0 +1,22 @@
+{
+  "name": "In the Public's Interest (IPI)",
+  "short_name": "IPI",
+  "description": "Non-profit home-based care, private care and community feeding schemes in Athlone and greater Cape Town.",
+  "lang": "en-ZA",
+  "dir": "ltr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#F8F3EA",
+  "theme_color": "#0B4B4A",
+  "categories": ["health", "medical", "lifestyle"],
+  "icons": [
+    {
+      "src": "images/ipi-logo.png",
+      "sizes": "819x557",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+/* TEAM */
+
+  Organisation: In the Public's Interest (IPI)
+  Role: Non-profit home-based care, private care and community feeding schemes
+  Contact: inthepublicsinterest11 [at] gmail.com
+  Location: Athlone, Cape Town, Western Cape, South Africa
+
+  Website by: ZAR Media Group
+  Site: https://zarmediagroup.com/
+  Location: South Africa
+
+/* SITE */
+
+  Last updated: 2026-10-21
+  Language: English (en-ZA)
+  Standards: HTML5, CSS3, Schema.org JSON-LD
+  Components: None — hand-written static HTML and CSS
+  Software: Static site, Apache shared hosting

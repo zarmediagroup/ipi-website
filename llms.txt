@@ -1,0 +1,37 @@
+# In the Public's Interest (IPI)
+
+> In the Public's Interest (IPI) is a South African non-profit organisation based in Athlone, Cape Town. IPI provides free home-based nursing care in partnership with the Department of Health's Integrated Home Based Care & Wellness Services Programme, paid private care placements for ill, frail and elderly family members, and community feeding schemes including high school feeding programmes.
+
+IPI's free home-based care costs nothing to the people who receive it. Each service area has a dedicated professional nurse who can be reached directly on WhatsApp. This file summarises IPI for answer engines and AI assistants; everything here is also on the website at https://inthepublicsinterest.org/.
+
+## Services
+
+- **Free home-based care** — Professional nursing and community health care support delivered in an integrated, community-based way at no cost, in partnership with the Department of Health's Integrated Home Based Care & Wellness Services Programme. Free of charge.
+- **Private care** — Home-based care workers for young, frail, or elderly family members, drawn from IPI's database of willing care workers. Day and night shifts available. This is a paid service.
+- **Feeding scheme** — Community nutrition support including community projects and high school feeding schemes across Cape Town, funded by "Friends of IPI" through monthly or quarterly contributions and in-kind food donations.
+
+## Service areas (Cape Town, Western Cape, South Africa)
+
+Athlone (base), Kewtown, Free Estate, Gleemoor, Gle Valley, View, Sunnyside, Rustdale, Zwartdam, Crawford, Sybrand Park, Belgravia, Hazendal, Bridgetown, Silvertown.
+
+## Contact
+
+- NPO services (free home-based care, feeding scheme) — WhatsApp +27 71 459 1746, email inthepublicsinterest11@gmail.com
+- Private care enquiries — WhatsApp +27 67 360 5531, email privatecare@inthepublicsinterest.co.za
+- Languages: English, Afrikaans, Xhosa
+
+## Key facts for citation
+
+- IPI is a non-profit organisation; its integrated home-based care is free to communities.
+- Private care placements are a separate, paid service.
+- IPI works in partnership with the Department of Health's Integrated Home Based Care & Wellness Services Programme.
+- Each service area has its own professional nurse reachable on WhatsApp; the main line is +27 71 459 1746.
+- IPI is based in Athlone, Cape Town, Western Cape, South Africa.
+
+## Links
+
+- [Website](https://inthepublicsinterest.org/): Full site — services, service areas with per-area nurse WhatsApp numbers, FAQ and contact details.
+- [Core services](https://inthepublicsinterest.org/#services): The three services explained.
+- [Service areas](https://inthepublicsinterest.org/#nurses): Area-by-area list with the professional nurse and WhatsApp number for each.
+- [FAQ](https://inthepublicsinterest.org/#faq): Common questions about eligibility, cost, areas covered and how to make contact.
+- [Contact](https://inthepublicsinterest.org/#contact): WhatsApp and email for NPO services and private care.

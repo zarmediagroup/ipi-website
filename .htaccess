@@ -1,0 +1,58 @@
+Options -MultiViews
+RewriteEngine On
+
+# Redirect all traffic to HTTPS once the SSL certificate is active.
+# If the site shows a redirect error before SSL is enabled, temporarily
+# comment out the next three lines by adding # in front of them.
+RewriteCond %{HTTPS} !=on
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Canonical host: send www to the bare domain so link equity lands on one URL.
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+
+# Serve a real 404 for unknown paths. (Do NOT rewrite everything to index.html:
+# this is a single static page, not an SPA, and a catch-all rewrite would return
+# HTTP 200 with duplicate content on every made-up URL.)
+ErrorDocument 404 /404.html
+
+DirectoryIndex index.html
+
+# Compress text assets for faster loading (helps SEO / Core Web Vitals).
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml text/markdown application/javascript application/json application/manifest+json image/svg+xml
+</IfModule>
+
+# Browser caching for images, CSS and JS.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpeg "access plus 6 months"
+  ExpiresByType image/png "access plus 6 months"
+  ExpiresByType image/webp "access plus 6 months"
+  ExpiresByType image/svg+xml "access plus 6 months"
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType application/manifest+json "access plus 1 week"
+  ExpiresByType text/html "access plus 1 hour"
+</IfModule>
+
+# Correct content types so crawlers and browsers read these files properly.
+<IfModule mod_mime.c>
+  AddType application/manifest+json .webmanifest
+  AddType application/xml .xml
+  AddCharset UTF-8 .html .css .js .json .xml .txt .webmanifest
+</IfModule>
+
+# llms.txt is markdown; serve it as readable plain text for answer engines.
+<Files "llms.txt">
+  ForceType text/plain
+</Files>
+
+# Baseline security headers.
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=()"
+</IfModule>
