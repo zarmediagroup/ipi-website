@@ -19,7 +19,7 @@
 (function () {
   'use strict';
 
-  var GA4_ID = 'REPLACE_WITH_GA4_MEASUREMENT_ID';
+  var GA4_ID = 'G-8YHDYWNYKH';
 
   // Deliberately strict: the placeholder above must fail this test, so a
   // forgotten setup step silently does nothing instead of sending bad data.

@@ -178,6 +178,16 @@ Each carries `link_url` (with the `?text=` prefill stripped), `link_text` and `p
 see *which* area's nurse gets contacted. Page views alone would not tell you whether the site works.
 In **GA4 > Admin > Events**, mark `whatsapp_click` as a key event to count it as a conversion.
 
+**Verifying it works:** open **GA4 > Reports > Realtime** and load the site. If the property was only
+just created, hits can be refused for a while before the stream is fully provisioned — during local
+testing on 2026-10-22 the tag loaded fine (gtag.js 200) and fired well-formed hits
+(`tid=G-8YHDYWNYKH`, `en=page_view`), but `google-analytics.com/g/collect` answered 503. The endpoint
+itself was reachable from the same machine, so that was Google-side, not the markup. Re-check Realtime
+after deploying; if it is still empty a day later, confirm the data stream in GA4 > Admin > Data streams.
+
+**Filter your own visits:** GA4 > Admin > Data settings > Data filters, or exclude your IP, so testing and
+office traffic do not inflate the numbers.
+
 Privacy: GA4 always anonymises IPs, and the config additionally disables Google Signals and ad
 personalisation, keeping this to plain measurement. It does still set first-party analytics cookies —
 see the consent note under Known gaps.
