@@ -149,9 +149,68 @@ Two real faults were found and fixed:
 The mobile menu was re-checked after the nav padding change: it opens, closes, reports `aria-expanded`
 correctly and gives 46 px link targets.
 
+## Analytics and Search Console
+
+Both are wired up and waiting on one value each. The site is safe to deploy before either is filled in.
+
+### GA4
+
+Open `assets/analytics.js` and replace the one placeholder:
+
+```js
+var GA4_ID = 'REPLACE_WITH_GA4_MEASUREMENT_ID';   // -> 'G-ABC1234XYZ'
+```
+
+Get it from **GA4 > Admin > Data streams > (web stream) > Measurement ID**.
+
+The ID is validated against `/^G-[A-Z0-9]{6,15}$/` and the placeholder deliberately fails it, so until a
+real ID is pasted the file loads **nothing**: no gtag script, no network request, no cookie. A forgotten
+setup step is therefore silent rather than broken.
+
+Once set, the file also tracks the only two actions that matter for IPI:
+
+| Event | Fires on |
+|---|---|
+| `whatsapp_click` | any `wa.me` link — the hero CTA, the per-area nurse numbers, the floating button |
+| `email_click` | any `mailto:` link |
+
+Each carries `link_url` (with the `?text=` prefill stripped), `link_text` and `page_section`, so you can
+see *which* area's nurse gets contacted. Page views alone would not tell you whether the site works.
+In **GA4 > Admin > Events**, mark `whatsapp_click` as a key event to count it as a conversion.
+
+Privacy: GA4 always anonymises IPs, and the config additionally disables Google Signals and ad
+personalisation, keeping this to plain measurement. It does still set first-party analytics cookies —
+see the consent note under Known gaps.
+
+### Google Search Console
+
+In `index.html`, replace the content value:
+
+```html
+<meta name="google-site-verification" content="REPLACE_WITH_SEARCH_CONSOLE_TOKEN" />
+```
+
+Search Console > Add property > **URL prefix** (not Domain) > verify by **HTML tag** gives you the token.
+Deploy, then click Verify.
+
+A domain-level **DNS TXT** record at the registrar is the more durable alternative: it covers every
+subdomain and survives redeploys, so it cannot be lost by an upload that overwrites `index.html`.
+
+After verifying, submit `sitemap.xml` under **Indexing > Sitemaps**.
+
+Worth doing at the same time: **Bing Webmaster Tools** can import directly from Search Console, and Bing
+feeds Copilot and several answer engines, so it is cheap AEO coverage.
+
 ## Known gaps
 
-- **No analytics.** No GA4 / Search Console verification tag is installed yet.
+- **GA4 and Search Console are wired but not switched on.** Both need one value pasted in; see the
+  Analytics section above. Until then the site collects nothing.
+- **No consent banner and no privacy policy.** GA4 sets first-party cookies. POPIA is mainly about
+  processing personal information rather than cookies specifically, and plenty of South African sites run
+  GA4 without a banner, but IPI is a health non-profit serving vulnerable people, so this is worth a
+  deliberate decision rather than a default. Two honest options: add a short privacy policy page and keep
+  running GA4 as configured, or add a consent banner with Google Consent Mode v2 defaulting to denied.
+  Nothing collects data until the GA4 ID is set, so there is no urgency.
 - **No `sameAs` links.** If IPI has Facebook / Instagram / LinkedIn pages, add them to the `NGO` node in the
   JSON-LD — it is one of the strongest entity signals available and is currently missing.
 - **No NPO registration number.** If IPI has one, add it as `identifier` on the organisation node and in the
