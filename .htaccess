@@ -4,17 +4,22 @@ RewriteEngine On
 # Redirect all traffic to HTTPS once the SSL certificate is active.
 # If the site shows a redirect error before SSL is enabled, temporarily
 # comment out the next three lines by adding # in front of them.
+RewriteCond %{ENV:REDIRECT_STATUS} ^$
 RewriteCond %{HTTPS} !=on
 RewriteCond %{HTTP:X-Forwarded-Proto} !https
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
 # Canonical host: send www to the bare domain so link equity lands on one URL.
+RewriteCond %{ENV:REDIRECT_STATUS} ^$
 RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
 RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
 
 # Serve a real 404 for unknown paths. (Do NOT rewrite everything to index.html:
 # this is a single static page, not an SPA, and a catch-all rewrite would return
 # HTTP 200 with duplicate content on every made-up URL.)
+# The REDIRECT_STATUS guards above matter: without them these rules re-fire
+# during the internal request Apache makes to serve ErrorDocument, which makes
+# it abandon /404.html and emit its own bare "404 Not Found" instead.
 ErrorDocument 404 /404.html
 
 DirectoryIndex index.html
