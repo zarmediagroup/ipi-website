@@ -32,6 +32,22 @@ There is **no build step and no dependencies**. Open `index.html` in a browser, 
 python -m http.server 8000
 ```
 
+## Cache busting — read before editing CSS
+
+`.htaccess` caches CSS for a month and images for six months, which is right for performance but means a
+returning visitor can hold **old CSS against new HTML**. That combination breaks this page specifically:
+without the `.showcase-track` rule the carousel figures fall back to `display:block` and the photos stack
+vertically down the page.
+
+The stylesheet and manifest are therefore requested with a version string:
+
+```html
+<link rel="stylesheet" href="assets/styles.css?v=20261022" />
+```
+
+**Bump that `v=` value in `index.html` and `404.html` every time you change `assets/styles.css`**, otherwise
+returning visitors keep the stale file until their cache expires. Use the date of the change.
+
 ## Deploying to GoDaddy cPanel
 
 1. Zip the repo contents (**not** the repo folder itself) — everything above except `README.md` and `.git/`.
