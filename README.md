@@ -13,7 +13,7 @@ Built and maintained by [ZAR Media Group](https://zarmediagroup.com/).
 
 ```
 .
-├── index.html            Single-page site (hero, services, service areas, private care, gallery, FAQ, contact)
+├── index.html            Single-page site (hero, services, service areas, private care, carousel, FAQ, contact)
 ├── 404.html              Branded not-found page (referenced by ErrorDocument in .htaccess)
 ├── .htaccess             HTTPS + www→apex redirects, 404, compression, caching, MIME types, security headers
 ├── robots.txt            Crawl rules — search engines and answer engines (AI assistants) explicitly allowed
@@ -60,11 +60,19 @@ After a deploy that changes content, resubmit `sitemap.xml` in Google Search Con
   with identical content on every nonexistent URL (soft 404 / duplicate content). Unknown paths now return a
   real 404 and `404.html`.
 
+- Title trimmed from 100 to 48 characters and the meta description from 294 to 148, so neither is
+  truncated in the SERP. The long versions were being cut off mid-phrase.
+- `404.html` loads its CSS and images from root-absolute paths. `ErrorDocument` serves the file while the
+  browser keeps the *requested* URL, so relative paths would have resolved against the bad path and the
+  404 page would have rendered unstyled.
+
 **AEO (answer engines / AI assistants)**
 
 - One consolidated JSON-LD `@graph` instead of disconnected blocks, with linked `@id`s:
-  `NGO` + `MedicalOrganization`, three `Service` entities, `WebSite`, `WebPage`, `BreadcrumbList`,
-  `ImageGallery` (all nine gallery photos with captions) and `FAQPage`.
+  `NGO` + `MedicalOrganization`, three `Service` entities, `WebSite`, `WebPage`, `ImageObject`,
+  `ImageGallery` (all nine photos with captions), `FAQPage` and an `ItemList` of
+  `SiteNavigationElement`s. A `BreadcrumbList` was deliberately **not** used: a single-page site has
+  no hierarchy, so a trail of `#anchors` earns no rich result and misstates the structure.
 - `speakable` specification on the `WebPage` for voice assistants.
 - `FAQPage` with 8 Q&As. **Every question and answer in the schema is also visible on the page** — Google
   requires this, and assistants quote the visible copy.
@@ -84,9 +92,19 @@ After a deploy that changes content, resubmit `sitemap.xml` in Google Search Con
 ## Photography
 
 The gallery and work showcase use nine photographs supplied by IPI in October 2026, renamed to descriptive
-SEO filenames. Two photos from the original build — `ipi-community-health-outreach-athlone.jpg` and
-`ipi-high-school-feeding-scheme-outreach.jpg` — are no longer used on the page but are kept in `images/` as
-client assets. They are deliberately excluded from `sitemap.xml`; delete them if they will not be reused.
+SEO filenames.
+
+"Work we've done" is a **carousel**: a flex track with CSS `scroll-snap`, so it scrolls natively with a
+swipe, a trackpad, or the keyboard once focused — no library. Tiles per view come from the stylesheet
+(3 desktop / 2 tablet / 1 phone) and the JS *measures* that rather than repeating the breakpoints, so the
+dots regroup themselves into pages: 3 dots on desktop, 5 on tablet, 9 on a phone. Positions are read with
+`getBoundingClientRect`, not `offsetLeft`, because the tiles are `position:relative` and so are not
+offset-positioned against the track. There are no prev/next arrows by request.
+
+Two photos from the original build — `ipi-community-health-outreach-athlone.jpg` and
+`ipi-high-school-feeding-scheme-outreach.jpg` — are no longer shown on the page. They are kept in `images/`
+and still uploaded, because the previous `sitemap.xml` listed them and Google may have indexed those image
+URLs; removing the files would turn those into 404s. They are no longer listed in the sitemap.
 
 ## Known gaps
 
