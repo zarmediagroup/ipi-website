@@ -56,3 +56,31 @@ img { max-width: 100%; }
 
 /* Showcase carousel: respect reduced-motion preferences. */
 @media (prefers-reduced-motion: reduce) { .showcase-track { scroll-behavior:auto; } }
+
+/* ---------------------------------------------------------------------------
+   Responsive + tap-target pass.
+   WCAG 2.2 SC 2.5.8 asks for interactive targets of at least 24x24 CSS px.
+   Links sitting inline inside a sentence are explicitly exempt, so FAQ answer
+   copy and body prose are left alone; standalone controls and link groups,
+   which were 13-16px tall, are padded out to clear the minimum.
+   --------------------------------------------------------------------------- */
+.showcase-dots button { padding:11px 0; min-height:24px; }
+.footer-links a, .contact-details a { display:inline-block; padding:4px 0; }
+.top-strip a { padding:6px 0; }
+.hero-actions .text-link { padding-top:4px; }
+.footer-credit { display:inline-block; padding:5px 0; }
+
+@media (max-width:640px) {
+  /* Nine dots at a fixed 33px need 369px of row; a 320px phone offers 273px,
+     so they wrapped onto a second line. Let them share the row instead. */
+  .showcase-dots { gap:5px; flex-wrap:nowrap; }
+  .showcase-dots button { flex:1 1 0; width:auto; min-width:0; }
+}
+
+/* Desktop nav links sat at 17px tall. Scoped to >=641px so the mobile menu
+   keeps its own larger padding, and excluding the CTA, which is already big. */
+@media (min-width:641px) {
+  .main-nav a:not(.nav-cta) { padding:5px 0; }
+}
+/* "FAQ" is only 22px wide; 2.5.8 measures both axes. */
+.footer-links a { min-width:24px; }

@@ -106,6 +106,26 @@ Two photos from the original build — `ipi-community-health-outreach-athlone.jp
 and still uploaded, because the previous `sitemap.xml` listed them and Google may have indexed those image
 URLs; removing the files would turn those into 404s. They are no longer listed in the sitemap.
 
+## Responsive & accessibility
+
+Tested by loading the page into fixed-width iframes (media queries evaluate against the iframe
+viewport, so this is a true test) at 320, 360, 390, 414, 480, 600, 641, 768, 900, 1024, 1280, 1440
+and 1920 px. At every width: no horizontal overflow, the nav never collides with the brand, and the
+carousel shows 1 / 2 / 3 tiles with its dots regrouped to 9 / 5 / 3.
+
+Two real faults were found and fixed:
+
+- **Carousel dots wrapped to two rows on every phone size.** Nine dots at a fixed 33 px need 369 px of
+  row; a 320 px phone offers 273 px. They now share the row with `flex:1 1 0` below 640 px.
+- **Tap targets under the WCAG 2.2 SC 2.5.8 minimum of 24x24 px.** The carousel dots were 33x13, the
+  desktop nav links 17 px tall, the footer and contact link groups 16 px, and the footer "FAQ" link
+  only 22 px wide. All padded out. Links sitting *inline inside a sentence* are explicitly exempt from
+  2.5.8, so FAQ answer copy and body prose were deliberately left alone — padding those would have
+  broken line spacing for no compliance gain.
+
+The mobile menu was re-checked after the nav padding change: it opens, closes, reports `aria-expanded`
+correctly and gives 46 px link targets.
+
 ## Known gaps
 
 - **No analytics.** No GA4 / Search Console verification tag is installed yet.
