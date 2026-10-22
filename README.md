@@ -95,11 +95,18 @@ The gallery and work showcase use nine photographs supplied by IPI in October 20
 SEO filenames.
 
 "Work we've done" is a **carousel**: a flex track with CSS `scroll-snap`, so it scrolls natively with a
-swipe, a trackpad, or the keyboard once focused — no library. Tiles per view come from the stylesheet
-(3 desktop / 2 tablet / 1 phone) and the JS *measures* that rather than repeating the breakpoints, so the
-dots regroup themselves into pages: 3 dots on desktop, 5 on tablet, 9 on a phone. Positions are read with
-`getBoundingClientRect`, not `offsetLeft`, because the tiles are `position:relative` and so are not
-offset-positioned against the track. There are no prev/next arrows by request.
+swipe, a trackpad, or the keyboard once focused — no library. It shows three photos at a time on desktop,
+two on tablet, one on a phone.
+
+Controls: prev/next arrows top-right of the heading, round dots and a live `Slide N of M` counter below.
+Arrows disable at the two ends rather than wrapping. The counter is `aria-live="polite"`, so screen
+readers hear the slide change. There is no auto-advance: it would need a pause control to satisfy
+WCAG 2.2.2, and it tends to fight the reader.
+
+Tiles per view comes from the stylesheet and the JS *measures* it rather than repeating the breakpoints,
+so the dots regroup themselves into pages — 3 on desktop, 5 on tablet, 9 on a phone — and the counter
+follows. Positions are read with `getBoundingClientRect`, not `offsetLeft`, because the tiles are
+`position:relative` and so are not offset-positioned against the track.
 
 Two photos from the original build — `ipi-community-health-outreach-athlone.jpg` and
 `ipi-high-school-feeding-scheme-outreach.jpg` — are no longer shown on the page. They are kept in `images/`
